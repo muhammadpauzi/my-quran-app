@@ -4,13 +4,16 @@ import SurahCard from './SurahCard';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from '../helpers/axios';
+import Spinner from './Spinner';
 
 export default function Surah() {
     const [allSurah, setAllSurah] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const getAllSurah = async () => {
         const allSurah = await axios.get('surah');
         setAllSurah(allSurah.data.data);
+        setLoading(false);
     }
 
     useEffect(() => {
@@ -24,6 +27,7 @@ export default function Surah() {
                 <Input withLabel={false} placeholder="Enter a keyword..." nameAndID="keyword" className="w-full sm:w-72" />
             </div>
 
+            {loading && <Spinner />}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 ">
                 {allSurah.map((surah, i) => {
                     return (
