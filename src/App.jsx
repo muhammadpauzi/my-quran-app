@@ -5,6 +5,7 @@ import Surah from './components/Surah';
 import SurahDetail from './components/SurahDetail';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import NotFound from './components/NotFound';
 
 const surah = [
   {
@@ -42,6 +43,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Surah surah={surah} />} />
             <Route path="/surah/:number" element={<SurahDetail />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Container>
         <Player />
