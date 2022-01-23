@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 export default function Surah({ surah }) {
     return (
         <>
-            <div className="flex items-stretch sm:items-center justify-between mb-5 flex-col sm:flex-row">
-                <Heading className="text-lg sm:text-3xl font-bold mb-5 sm:mb-0 text-center">Surah</Heading>
+            <div className="flex items-stretch sm:items-center justify-between mb-3 sm:mb-5 flex-col sm:flex-row">
+                <Heading className="text-xl sm:text-3xl font-bold mb-5 sm:mb-0 text-center">Surah</Heading>
                 <Input withLabel={false} placeholder="Enter a keyword..." nameAndID="keyword" className="w-full sm:w-72" />
             </div>
 
