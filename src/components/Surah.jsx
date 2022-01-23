@@ -9,22 +9,39 @@ import Spinner from './Spinner';
 export default function Surah() {
     const [allSurah, setAllSurah] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [keyword, setKeyword] = useState("");
+    const [allSurahInitial, setAllSurahInitial] = useState([]);
 
     const getAllSurah = async () => {
-        const allSurah = await axios.get('surah');
+        const allSurah = await axios.get(`surah`);
+        setAllSurahInitial([...allSurah.data.data]);
         setAllSurah(allSurah.data.data);
         setLoading(false);
+    }
+
+    const searchSurah = () => {
+        let searchedSurah = [];
+        allSurahInitial.map(surah => {
+            if (surah.englishName.toLowerCase().includes(keyword) || surah.englishNameTranslation.toLowerCase().includes(keyword)) {
+                searchedSurah.push(surah);
+            }
+        });
+        setAllSurah(searchedSurah);
     }
 
     useEffect(() => {
         getAllSurah();
     }, []);
 
+    useEffect(() => {
+        searchSurah();
+    }, [keyword]);
+
     return (
         <>
             <div className="flex items-stretch sm:items-center justify-between mb-3 sm:mb-5 flex-col sm:flex-row">
                 <Heading className="text-xl sm:text-3xl font-bold mb-5 sm:mb-0 text-center">Surah</Heading>
-                <Input withLabel={false} placeholder="Enter a keyword..." nameAndID="keyword" className="w-full sm:w-72" />
+                <Input onChange={(e) => setKeyword(e.target.value.toLowerCase())} withLabel={false} placeholder="Enter a keyword..." nameAndID="keyword" className="w-full sm:w-72" />
             </div>
 
             {loading && <Spinner />}
