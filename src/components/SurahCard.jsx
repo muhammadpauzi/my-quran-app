@@ -13,7 +13,7 @@ export default function SurahCard({ number, englishName, englishNameTranslation,
             </div>
             <div>
                 <Heading tag="h3" className="font-bold text-black">{englishName}</Heading>
-                <small className="font-bold text-gray-700">{englishNameTranslation}</small>
+                <small className="font-medium text-gray-500">{englishNameTranslation}</small>
             </div>
         </Card>
     )
