@@ -19,7 +19,7 @@ export default function Navbar() {
     }
 
     return (
-        <Disclosure as="nav" className="py-6 px-5 bg-white">
+        <Disclosure as="nav" className="py-6 px-5 bg-white shadow-lg shadow-slate-100">
             {({ open }) => (
                 <>
                     <Container withPadding={false}>
