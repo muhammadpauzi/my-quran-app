@@ -2,11 +2,12 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import Container from "./Container"
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import { Link } from 'react-router-dom';
 
 const navigation = [
-    { name: 'Home', href: '#', type: "link", current: true },
-    { name: 'About', href: '#', type: "link", current: false },
-    { name: 'Support', href: '#', type: "button", current: false },
+    { name: 'Home', href: '/', type: "link", current: true },
+    { name: 'About', href: '/', type: "link", current: false },
+    { name: 'Support', href: '/support', type: "button", current: false },
 ]
 
 function classNames(...classes) {
@@ -33,17 +34,17 @@ export default function Navbar() {
                             </div>
                             <div className="flex-1 flex items-center justify-between sm:items-stretch">
                                 <div className="flex-shrink-0 flex items-center">
-                                    <a href="" className="text-xl text-black font-bold">
+                                    <Link to="/" className="text-xl text-black font-bold">
                                         My
                                         <span className="text-green-500">Quran</span>
-                                    </a>
+                                    </Link>
                                 </div>
                                 <div className="hidden sm:block sm:ml-6">
                                     <div className="flex space-x-4">
                                         {navigation.map((item) => (
-                                            <a
+                                            <Link
                                                 key={item.name}
-                                                href={item.href}
+                                                to={item.href}
                                                 className={classNames(
                                                     item.current ? 'text-green-500' : 'text-gray-800 hover:text-green-500', item.type === "button" && 'bg-green-500 text-white hover:text-white',
                                                     'px-3 py-2 rounded-md text-md font-medium'
@@ -51,7 +52,7 @@ export default function Navbar() {
                                                 aria-current={item.current ? 'page' : undefined}
                                             >
                                                 {item.name}
-                                            </a>
+                                            </Link>
                                         ))}
                                     </div>
                                 </div>
@@ -62,23 +63,22 @@ export default function Navbar() {
                     <Disclosure.Panel className="sm:hidden">
                         <div className="px-2 pt-5 pb-3 space-y-1">
                             {navigation.map((item) => (
-                                <Disclosure.Button
-                                    key={item.name}
-                                    as="a"
-                                    href={item.href}
+                                <Disclosure.Button as={Link} key={item.name}
+                                    as="Link"
+                                    to={item.href}
                                     className={classNames(
                                         item.current ? 'text-green-500 bg-green-100' : 'text-gray-800 hover:bg-green-100 hover:text-green-500',
                                         'block px-3 py-2 rounded-md text-base font-medium'
                                     )}
-                                    aria-current={item.current ? 'page' : undefined}
-                                >
+                                    aria-current={item.current ? 'page' : undefined}>
                                     {item.name}
                                 </Disclosure.Button>
                             ))}
                         </div>
                     </Disclosure.Panel>
                 </>
-            )}
-        </Disclosure>
+            )
+            }
+        </Disclosure >
     )
 }
