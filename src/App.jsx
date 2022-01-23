@@ -1,9 +1,10 @@
 import Container from './components/Container';
-import Heading from './components/Heading';
-import Input from './components/Input';
 import Navbar from './components/Navbar';
 import Player from './components/Player';
-import SurahCard from './components/SurahCard';
+import Surah from './components/Surah';
+import SurahDetail from './components/SurahDetail';
+
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 const surah = [
   {
@@ -35,24 +36,17 @@ const surah = [
 function App() {
   return (
     <div className="bg-gray-50 min-h-screen relative">
-      <Navbar />
-      <Container>
-        <div className="flex items-center justify-between mb-5">
-          <Heading className="text-3xl font-bold">Surah</Heading>
-          <Input withLabel={false} placeholder="Enter a keyword..." nameAndID="keyword" className="w-72" />
-        </div>
-
-        <div className="grid grid-cols-3 gap-2">
-          {surah.map((s, i) => {
-            return (
-              <SurahCard {...s} key={i} />
-            )
-          })}
-        </div>
-      </Container>
-
-      <Player />
-    </div>
+      <Router>
+        <Navbar />
+        <Container>
+          <Routes>
+            <Route path="/" element={<Surah surah={surah} />} />
+            <Route path="/:number" element={<SurahDetail />} />
+          </Routes>
+        </Container>
+        <Player />
+      </Router>
+    </div >
   )
 }
 
