@@ -41,7 +41,7 @@ function App() {
         <Container>
           <Routes>
             <Route path="/" element={<Surah surah={surah} />} />
-            <Route path="/:number" element={<SurahDetail />} />
+            <Route path="/surah/:number" element={<SurahDetail />} />
           </Routes>
         </Container>
         <Player />

@@ -14,7 +14,7 @@ export default function Surah({ surah }) {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 ">
                 {surah.map((s, i) => {
                     return (
-                        <Link to={`/${s.number}`}>
+                        <Link to={`/surah/${s.number}`}>
                             <SurahCard {...s} key={i} />
                         </Link>
                     )
