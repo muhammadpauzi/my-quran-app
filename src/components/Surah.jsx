@@ -11,7 +11,7 @@ export default function Surah({ surah }) {
                 <Input withLabel={false} placeholder="Enter a keyword..." nameAndID="keyword" className="w-72" />
             </div>
 
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 ">
                 {surah.map((s, i) => {
                     return (
                         <Link to={`/${s.number}`}>
