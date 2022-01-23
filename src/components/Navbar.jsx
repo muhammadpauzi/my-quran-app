@@ -50,7 +50,7 @@ export default function Navbar() {
                                                 to={item.href}
                                                 className={classNames(
                                                     item.type === "button" && 'bg-green-500 text-white hover:text-white',
-                                                    'px-3 py-2 rounded-md text-md font-medium text-gray-800 hover:text-green-500'
+                                                    'px-3 py-2 rounded-md text-base font-medium text-gray-800 hover:text-green-500'
                                                 )}
                                             >
                                                 {item.name}
