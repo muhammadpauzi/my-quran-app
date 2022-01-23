@@ -10,8 +10,8 @@ export default function Player() {
                     <div className="flex items-center justify-between">
                         <span className="rounded-full h-6 w-6 sm:h-10 sm:w-10 flex items-center justify-center bg-green-200 text-green-500 text-sm font-bold mr-3 sm:mr-5">1</span>
                         <div>
-                            <Heading tag="h2" className="font-bold text-black text-sm sm:text-lg">Al Fatihah</Heading>
-                            <small className="font-bold text-gray-700 text-xs sm:text-sm">The Opening</small>
+                            <Heading tag="h2" className="font-bold text-black text-sm sm:text-lg -mb-1">Al Fatihah</Heading>
+                            <small className="font-medium text-gray-500 text-xs sm:text-sm">The Opening</small>
                         </div>
                     </div>
                     <div className="hidden sm:block">
