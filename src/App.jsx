@@ -35,7 +35,7 @@ const surah = [
 
 function App() {
   return (
-    <div className="bg-gray-50 min-h-screen relative pb-20">
+    <div className="bg-gray-50 min-h-screen relative pb-40">
       <Router>
         <Navbar />
         <Container>

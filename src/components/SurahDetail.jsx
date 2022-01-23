@@ -1,5 +1,7 @@
+import Ayah from './Ayah';
 import Heading from './Heading';
 import Input from './Input';
+import { PlayIcon } from '@heroicons/react/solid';
 
 export default function SurahDetail() {
     return (
@@ -9,10 +11,16 @@ export default function SurahDetail() {
                 <Input withLabel={false} placeholder="Enter a keyword..." nameAndID="keyword" className="w-full sm:w-72" />
             </div>
 
+            <div className="py-5 text-center">
+                <button className="rounded-full bg-green-500 h-9 w-9">
+                    <PlayIcon className="text-white" />
+                </button>
+            </div>
+
             <div className="space-y-5">
                 {[1, 2, 3, 4].map((s, i) => {
                     return (
-                        <p key={i}>{s}</p>
+                        <Ayah key={i} />
                     )
                 })}
             </div>
