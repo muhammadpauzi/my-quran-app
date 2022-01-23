@@ -1,20 +1,23 @@
-import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { Disclosure } from '@headlessui/react'
 import Container from "./Container"
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router';
 
-const navigation = [
-    { name: 'Home', href: '/', type: "link", current: true },
-    { name: 'About', href: '/', type: "link", current: false },
-    { name: 'Support', href: '/support', type: "button", current: false },
-]
-
-function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-}
 
 export default function Navbar() {
+    const navigation = [
+        { name: 'Home', href: '/', type: "link", },
+        { name: 'Favorites', href: '/favorites', type: "link" },
+        { name: 'Support', href: '/support', type: "button" }
+    ];
+
+
+    function classNames(...classes) {
+        return classes.filter(Boolean).join(' ')
+    }
+
     return (
         <Disclosure as="nav" className="py-6 px-5 bg-white">
             {({ open }) => (
@@ -46,10 +49,9 @@ export default function Navbar() {
                                                 key={item.name}
                                                 to={item.href}
                                                 className={classNames(
-                                                    item.current ? 'text-green-500' : 'text-gray-800 hover:text-green-500', item.type === "button" && 'bg-green-500 text-white hover:text-white',
-                                                    'px-3 py-2 rounded-md text-md font-medium'
+                                                    item.type === "button" && 'bg-green-500 text-white hover:text-white',
+                                                    'px-3 py-2 rounded-md text-md font-medium text-gray-800 hover:text-green-500'
                                                 )}
-                                                aria-current={item.current ? 'page' : undefined}
                                             >
                                                 {item.name}
                                             </Link>
@@ -64,13 +66,11 @@ export default function Navbar() {
                         <div className="px-2 pt-5 pb-3 space-y-1">
                             {navigation.map((item) => (
                                 <Disclosure.Button as={Link} key={item.name}
-                                    as="Link"
                                     to={item.href}
                                     className={classNames(
-                                        item.current ? 'text-green-500 bg-green-100' : 'text-gray-800 hover:bg-green-100 hover:text-green-500',
+                                        item.type === "button" ? 'bg-green-500 text-white hover:text-white text-center ' : 'hover:bg-green-100 hover:text-green-500',
                                         'block px-3 py-2 rounded-md text-base font-medium'
-                                    )}
-                                    aria-current={item.current ? 'page' : undefined}>
+                                    )}>
                                     {item.name}
                                 </Disclosure.Button>
                             ))}
