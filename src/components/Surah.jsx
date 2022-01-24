@@ -41,7 +41,11 @@ export default function Surah() {
         <>
             <div className="flex items-stretch sm:items-center justify-between mb-3 sm:mb-5 flex-col sm:flex-row">
                 <Heading className="text-xl sm:text-3xl font-bold mb-5 sm:mb-0 text-center">Surah</Heading>
-                <Input onChange={(e) => setKeyword(e.target.value.toLowerCase())} withLabel={false} placeholder="Enter a keyword..." nameAndID="keyword" className="w-full sm:w-72" />
+                <Input onKeyUp={(e) => {
+                    if (e.which === 13) { // enter
+                        setKeyword(e.target.value.toLowerCase());
+                    }
+                }} withLabel={false} placeholder="Enter a keyword..." nameAndID="keyword" className="w-full sm:w-72" />
             </div>
 
             {loading && <Spinner />}
