@@ -1,17 +1,21 @@
 import Ayah from './Ayah';
 import Heading from './Heading';
 import { Fragment } from 'react';
-import { ChevronDownIcon, PlayIcon } from '@heroicons/react/solid';
+import { ChevronDownIcon, PlayIcon, RefreshIcon } from '@heroicons/react/solid';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from '../helpers/axios';
 import Spinner from './Spinner';
 import { Menu, Transition } from '@headlessui/react';
 import { getLastListenedOfNumberOfSurah } from '../helpers/date';
+import Input from './Input';
 
 export default function SurahDetail() {
     const [surah, setSurah] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [min, setMin] = useState(1);
+    const [max, setMax] = useState(0);
+    const [ayahs, setAyahs] = useState([]);
 
     const params = useParams();
     const navigate = useNavigate();
@@ -30,15 +34,25 @@ export default function SurahDetail() {
             data.data.ayahs = mappedSurah;
 
             setSurah(data.data);
+            setMax(data.data.numberOfAyahs);
             setLoading(false);
         } catch (e) { // if number of surah is not valid
             navigate('/');
         }
     }
 
+    const getAyahs = () => {
+        console.log(min, max, surah?.numberOfAyahs)
+        setAyahs(surah?.ayahs?.filter(ayah => Number(ayah.numberInSurah) >= min && Number(ayah.numberInSurah) <= max));
+    }
+
     useEffect(() => {
         getSurah(params.number);
     }, []);
+
+    useEffect(() => {
+        getAyahs();
+    }, [min, max]);
 
     if (loading)
         return (<Spinner />)
@@ -50,6 +64,12 @@ export default function SurahDetail() {
                     Surah {surah.englishName}
                     <button className="rounded-full bg-green-500 h-9 w-9">
                         <PlayIcon className="text-white" />
+                    </button>
+                    <button className="h-9 w-9">
+                        <RefreshIcon className="text-green-500" onClick={() => {
+                            setMin(1);
+                            setMax(Number(surah?.numberOfAyahs));
+                        }} />
                     </button>
                 </Heading>
 
@@ -97,9 +117,13 @@ export default function SurahDetail() {
                 <span>Revelation Type : <span className="text-green-500 block">{surah.revelationType}</span></span>
                 <span>Last Listened : <span className="text-green-500 block">{getLastListenedOfNumberOfSurah(params.number)}</span></span>
             </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 font-bold text-base mb-4 items-center">
+                <Input type="number" labelText="Starting from verse to" min={1} max={surah.numberOfAyahs - 1} value={min} className="w-full" onChange={(e) => setMin(Number(e.target.value))} />
+                <Input type="number" labelText="End with verse" min={min + 1} max={surah.numberOfAyahs} value={max} className="w-full" onChange={(e) => setMax(Number(e.target.value))} />
+            </div>
 
             <div className="space-y-5">
-                {surah?.ayahs?.map((ayah, i) => {
+                {ayahs?.map((ayah, i) => {
                     return (
                         <Ayah key={i} ayah={ayah} numberOfSurah={params.number} />
                     )
