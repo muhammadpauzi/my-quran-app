@@ -146,7 +146,7 @@ export default function SurahDetail() {
             <div className="p-5 bg-white rounded grid grid-cols-1 sm:grid-cols-3 gap-2 font-bold text-base mb-4">
                 <span>Total Ayahs : <span className="text-green-500 block">{surah.numberOfAyahs}</span></span>
                 <span>Revelation Type : <span className="text-green-500 block">{surah.revelationType}</span></span>
-                <span>Last Listened : <span className="text-green-500 block">{getLastListenedOfNumberOfSurah(params.number)}</span></span>
+                <span>Last Listened : <span className="text-green-500 block">{getLastListenedOfNumberOfSurah(params.number) || "Not Heard"}</span></span>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 font-bold text-base mb-4 items-center">
                 <Input type="number" labelText="Start From" min={1} max={surah.numberOfAyahs - 1} value={min} className="w-full" onChange={(e) => setMin(Number(e.target.value))} />
