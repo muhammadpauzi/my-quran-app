@@ -1,14 +1,14 @@
-const getCurrentData = (key = "") => {
+const getCurrentData = (key = "", defaultContent = "[]") => {
     try {
         let data = localStorage.getItem(key);
         // db's key is not exists on localStorage
         if (data == null) {
-            localStorage.setItem(key, "[]");
+            localStorage.setItem(key, defaultContent);
             return [];
         }
         return JSON.parse(data);
     } catch (err) {
-        localStorage.setItem(key, "[]");
+        localStorage.setItem(key, defaultContent);
         return [];
     }
 }

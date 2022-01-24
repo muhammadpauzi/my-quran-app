@@ -9,15 +9,18 @@ import Spinner from './Spinner';
 import { Menu, Transition } from '@headlessui/react';
 import { getLastListenedOfNumberOfSurah } from '../helpers/date';
 import Input from './Input';
+import { getCurrentData, saveData } from '../helpers/localStorage';
 
 export default function SurahDetail() {
+    const tr = getCurrentData('_translation', "{}");
+
     const [surah, setSurah] = useState([]);
     const [loading, setLoading] = useState(true);
     const [min, setMin] = useState(1);
     const [max, setMax] = useState(0);
     const [ayahs, setAyahs] = useState([]);
     const [translations, setTranslations] = useState([]) // TODO: get from localStorage
-    const [translation, setTranslation] = useState("id.indonesian") // TODO: get from localStorage
+    const [translation, setTranslation] = useState(tr?.translation || 'id.indonesian'); // TODO: get from localStorage
 
     const params = useParams();
     const navigate = useNavigate();
@@ -41,6 +44,7 @@ export default function SurahDetail() {
             setTranslations(translations.data);
             setLoading(false);
         } catch (e) { // if number of surah is not valid
+            setTranslation("id.indonesian") // if translation in localStorage is changed but wrong
             navigate('/');
         }
     }
@@ -117,7 +121,12 @@ export default function SurahDetail() {
                                         <Menu.Item key={i}>
                                             <button
                                                 className='bg-white text-gray-900 group flex hover:bg-gray-50 items-center w-full px-2 py-2 text-sm'
-                                                onClick={(e) => setTranslation(e.target.dataset.identifier)} data-identifier={translation.identifier}>
+                                                onClick={(e) => {
+                                                    setTranslation(e.target.dataset.identifier);
+                                                    let tr = getCurrentData('_translation', "{}");
+                                                    tr.translation = e.target.dataset.identifier;
+                                                    saveData('_translation', tr);
+                                                }} data-identifier={translation.identifier}>
                                                 {translation.language} {translation.englishName}
                                             </button>
                                         </Menu.Item>
