@@ -4,7 +4,6 @@ import Heading from "./Heading";
 import { useNavigate } from "react-router-dom";
 
 export default function Ayah({ ayah, numberOfSurah }) {
-    // console.log(ayah);
     const navigate = useNavigate();
 
     return (
@@ -24,7 +23,7 @@ export default function Ayah({ ayah, numberOfSurah }) {
             <div>
                 <small className="block font-bold text-green-500 text-right mb-4 text-xl sm:text-3xl">{ayah.text}</small>
                 <Heading tag="h3" className="font-bold text-black text-lg mb-2">{ayah.textInTR}</Heading>
-                <small className="font-medium text-gray-500 text-base">{ayah.textInID}</small>
+                <small className="font-medium text-gray-500 text-base">{ayah.textInTRL}</small>
             </div>
         </Card >
     )

@@ -16,25 +16,29 @@ export default function SurahDetail() {
     const [min, setMin] = useState(1);
     const [max, setMax] = useState(0);
     const [ayahs, setAyahs] = useState([]);
+    const [translations, setTranslations] = useState([]) // TODO: get from localStorage
+    const [translation, setTranslation] = useState("id.indonesian") // TODO: get from localStorage
 
     const params = useParams();
     const navigate = useNavigate();
 
-    const getSurah = async (numberOfSurah) => {
+    const getSurahAndTranslations = async (numberOfSurah) => {
         try {
             const { data } = await axios.get(`surah/${numberOfSurah}/ar.alafasy`);
             const { data: dataInTR } = await axios.get(`surah/${numberOfSurah}/en.transliteration`);
-            const { data: dataInID } = await axios.get(`surah/${numberOfSurah}/id.indonesian`);
+            const { data: dataInTRL } = await axios.get(`surah/${numberOfSurah}/${translation}`);
+            const { data: translations } = await axios.get(`edition/type/translation`);
 
             const mappedSurah = data.data.ayahs.map(ayah => {
                 ayah.textInTR = dataInTR.data.ayahs[ayah.numberInSurah - 1].text;
-                ayah.textInID = dataInID.data.ayahs[ayah.numberInSurah - 1].text;
+                ayah.textInTRL = dataInTRL.data.ayahs[ayah.numberInSurah - 1].text;
                 return ayah;
             });
             data.data.ayahs = mappedSurah;
 
             setSurah(data.data);
             setMax(data.data.numberOfAyahs);
+            setTranslations(translations.data);
             setLoading(false);
         } catch (e) { // if number of surah is not valid
             navigate('/');
@@ -42,17 +46,31 @@ export default function SurahDetail() {
     }
 
     const getAyahs = () => {
-        console.log(min, max, surah?.numberOfAyahs)
         setAyahs(surah?.ayahs?.filter(ayah => Number(ayah.numberInSurah) >= min && Number(ayah.numberInSurah) <= max));
     }
 
+    const changeTranslation = async (numberOfSurah) => {
+        const { data: dataInTRL } = await axios.get(`surah/${numberOfSurah}/${translation}`);
+
+        const ayahs = surah.ayahs.map(ayah => {
+            ayah.textInTRL = dataInTRL.data.ayahs[ayah.numberInSurah - 1].text;
+            return ayah;
+        });
+
+        setAyahs(ayahs);
+    }
+
     useEffect(() => {
-        getSurah(params.number);
+        getSurahAndTranslations(params.number);
     }, []);
 
     useEffect(() => {
         getAyahs();
     }, [min, max]);
+
+    useEffect(() => {
+        changeTranslation(params.number);
+    }, [translation]);
 
     if (loading)
         return (<Spinner />)
@@ -76,7 +94,7 @@ export default function SurahDetail() {
                 <Menu as="div" className="relative inline-block text-left">
                     <div>
                         <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-green-500 rounded">
-                            Translation
+                            Translation {translation}
                             <ChevronDownIcon
                                 className="w-5 h-5 ml-2 -mr-1 text-violet-200 hover:text-violet-100"
                                 aria-hidden="true"
@@ -93,14 +111,18 @@ export default function SurahDetail() {
                         leaveTo="transform opacity-0 scale-95"
                     >
                         <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                            <div className="px-1 py-1 ">
-                                <Menu.Item>
-                                    <button
-                                        className='bg-violet-500 text-gray-900 group flex rounded-md items-center w-full px-2 py-2 text-sm'
-                                    >
-                                        Edit
-                                    </button>
-                                </Menu.Item>
+                            <div className="px-1 py-1 max-h-96 overflow-y-auto">
+                                {translations?.map((translation, i) => {
+                                    return (
+                                        <Menu.Item key={i}>
+                                            <button
+                                                className='bg-white text-gray-900 group flex hover:bg-gray-50 items-center w-full px-2 py-2 text-sm'
+                                                onClick={(e) => setTranslation(e.target.dataset.identifier)} data-identifier={translation.identifier}>
+                                                {translation.language} {translation.englishName}
+                                            </button>
+                                        </Menu.Item>
+                                    );
+                                })}
                             </div>
                         </Menu.Items>
                     </Transition>
