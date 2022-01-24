@@ -1,28 +1,26 @@
-export function preventDoublePlayAndTriggerNextPlay(e, index) {
+export function preventDoublePlayAndTriggerNextPlay(e, index, navigate) {
     // code from https://github.com/buckypinkman/quran-online/blob/master/mixins/audio.js
     const allAudio = document.querySelectorAll('.' + e.target.className)
     for (let i = 0; i < allAudio.length; i++) {
-      if (allAudio[i] != e.target) {
-        allAudio[i].pause();
-      }
+        if (allAudio[i] != e.target) {
+            allAudio[i].pause();
+        }
     }
 
     e.target.onended = () => {
-            if(e.target != allAudio[allAudio.length - 1]){
-            const nextAudioEl = e.target.parentElement.parentElement.nextSibling.children[0].children[1]
-            nextAudioEl.play()
-            }
-}
-
-e.target.onplaying = () => {
-            if(e.target != allAudio[allAudio.length - 1]){
-                const nextAudioEl = e.target.parentElement.parentElement.nextSibling.children[0].children[1];
-                nextAudioEl.currentTime = 0;
-                nextAudioEl.preload = true
-            }
+        if(e.target != allAudio[allAudio.length - 1]){
+        const nextAudioEl = e.target.parentElement.parentElement.nextSibling.children[0].children[1]
+        nextAudioEl.play()
+        }
     }
 
-    // .push({
-    //   path: `#ayah-${index + 1}`
-    // })
+    e.target.onplaying = () => {
+        if(e.target != allAudio[allAudio.length - 1]){
+            const nextAudioEl = e.target.parentElement.parentElement.nextSibling.children[0].children[1];
+            nextAudioEl.currentTime = 0;
+            nextAudioEl.preload = true
+        }
+    }
+
+    window.location.assign(window.location.pathname + `#ayah-${index}`);
   };
