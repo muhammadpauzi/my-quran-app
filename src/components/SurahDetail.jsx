@@ -7,6 +7,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from '../helpers/axios';
 import Spinner from './Spinner';
 import { Menu, Transition } from '@headlessui/react';
+import { getLastListenedOfNumberOfSurah } from '../helpers/date';
 
 export default function SurahDetail() {
     const [surah, setSurah] = useState([]);
@@ -92,16 +93,15 @@ export default function SurahDetail() {
                 <span>Arabic Name : <span className="text-green-500 block">{surah.name}</span></span>
             </div>
             <div className="p-5 bg-white rounded grid grid-cols-1 sm:grid-cols-3 gap-2 font-bold text-base mb-4">
-
                 <span>Total Ayahs : <span className="text-green-500 block">{surah.numberOfAyahs}</span></span>
                 <span>Revelation Type : <span className="text-green-500 block">{surah.revelationType}</span></span>
-                <span>Last Listened : <span className="text-green-500 block">{(new Date()).toLocaleString()}</span></span>
+                <span>Last Listened : <span className="text-green-500 block">{getLastListenedOfNumberOfSurah(params.number)}</span></span>
             </div>
 
             <div className="space-y-5">
                 {surah?.ayahs?.map((ayah, i) => {
                     return (
-                        <Ayah key={i} ayah={ayah} />
+                        <Ayah key={i} ayah={ayah} numberOfSurah={params.number} />
                     )
                 })}
             </div>

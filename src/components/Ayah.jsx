@@ -3,7 +3,7 @@ import Card from "./Card";
 import Heading from "./Heading";
 import { useNavigate } from "react-router-dom";
 
-export default function Ayah({ ayah }) {
+export default function Ayah({ ayah, numberOfSurah }) {
     // console.log(ayah);
     const navigate = useNavigate();
 
@@ -16,7 +16,7 @@ export default function Ayah({ ayah }) {
                     controlsList="nodownload"
                     className="murottals-audio"
                     preload="none"
-                    onPlay={function (e) { preventDoublePlayAndTriggerNextPlay(e, ayah.number, navigate) }}
+                    onPlay={function (e) { preventDoublePlayAndTriggerNextPlay(e, ayah.number, navigate, numberOfSurah) }}
                 >
                     <source src={ayah.audio} />
                 </audio>

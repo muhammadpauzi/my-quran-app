@@ -1,4 +1,6 @@
-export function preventDoublePlayAndTriggerNextPlay(e, index, navigate) {
+import { getCurrentData, saveData } from "./localStorage";
+
+export function preventDoublePlayAndTriggerNextPlay(e, index, navigate, numberOfSurah) {
     // code from https://github.com/buckypinkman/quran-online/blob/master/mixins/audio.js
     const allAudio = document.querySelectorAll('.' + e.target.className)
     for (let i = 0; i < allAudio.length; i++) {
@@ -12,6 +14,22 @@ export function preventDoublePlayAndTriggerNextPlay(e, index, navigate) {
         const nextAudioEl = e.target.parentElement.parentElement.nextSibling.children[0].children[1]
         nextAudioEl.play()
         }
+
+        let last_listened = getCurrentData('_last_listened');
+        if(last_listened.length){
+            last_listened = last_listened.map(l => {
+                if(l.numberOfSurah == numberOfSurah){
+                    l.last_listened_date = (new Date()).toLocaleString();
+                }
+                return l;
+            });
+        } else {
+            last_listened.push({
+                numberOfSurah,
+                    last_listened_date: (new Date()).toLocaleString()
+            });
+        }
+        saveData("_last_listened",last_listened);
     }
 
     e.target.onplaying = () => {
