@@ -8,7 +8,7 @@ export default function Ayah({ ayah, numberOfSurah }) {
 
     return (
         <Card id={`ayah-${ayah.number}`}>
-            <div className="mb-4 flex items-center gap-4">
+            <div className="mb-8 flex items-center gap-4">
                 <span className="rounded-full h-8 w-8 flex items-center justify-center bg-green-200 text-green-500 text-sm font-bold">{ayah.numberInSurah}</span>
                 <audio
                     controls="controls"
