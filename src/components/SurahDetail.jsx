@@ -56,7 +56,7 @@ export default function SurahDetail() {
     const changeTranslation = async (numberOfSurah) => {
         const { data: dataInTRL } = await axios.get(`surah/${numberOfSurah}/${translation}`);
 
-        const ayahs = surah.ayahs.map(ayah => {
+        const ayahs = surah?.ayahs?.map(ayah => {
             ayah.textInTRL = dataInTRL.data.ayahs[ayah.numberInSurah - 1].text;
             return ayah;
         });
