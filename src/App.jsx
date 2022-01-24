@@ -14,7 +14,8 @@ function App() {
         <Navbar />
         <Container>
           <Routes>
-            <Route path="/" element={<Surah />} />
+            <Route path="/" element={<Surah page="home" />} />
+            <Route path="/surah/favorites" element={<Surah page="favorites" />} />
             <Route path="/surah/:number" element={<SurahDetail />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

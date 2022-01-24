@@ -9,7 +9,7 @@ import { useLocation } from 'react-router';
 export default function Navbar() {
     const navigation = [
         { name: 'Home', href: '/', type: "link", },
-        { name: 'Favorites', href: '/favorites', type: "link" },
+        { name: 'Favorites', href: '/surah/favorites', type: "link" },
         { name: 'Support', href: '/support', type: "button" }
     ];
 

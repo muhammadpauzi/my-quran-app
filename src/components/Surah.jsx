@@ -5,17 +5,27 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from '../helpers/axios';
 import Spinner from './Spinner';
+import { getCurrentData } from '../helpers/localStorage';
 
-export default function Surah() {
+export default function Surah({ page }) {
     const [allSurah, setAllSurah] = useState([]);
     const [loading, setLoading] = useState(true);
     const [keyword, setKeyword] = useState("");
     const [allSurahInitial, setAllSurahInitial] = useState([]);
 
     const getAllSurah = async () => {
-        const allSurah = await axios.get(`surah`);
-        setAllSurahInitial([...allSurah.data.data]);
-        setAllSurah(allSurah.data.data);
+        let allSurah = (await axios.get(`surah`)).data.data;
+        if (page == "favorites") {
+            console.log("MASUK");
+            const favorites = getCurrentData('_favorites').map(fav => fav.number);
+            allSurah = allSurah.filter(surah => {
+                if (favorites.includes(surah.number))
+                    return surah;
+            });
+        }
+        console.log(allSurah);
+        setAllSurahInitial([...allSurah]); // copy array
+        setAllSurah(allSurah);
         setLoading(false);
     }
 
@@ -31,7 +41,7 @@ export default function Surah() {
 
     useEffect(() => {
         getAllSurah();
-    }, []);
+    }, [page]);
 
     useEffect(() => {
         searchSurah();
@@ -40,7 +50,7 @@ export default function Surah() {
     return (
         <>
             <div className="flex items-stretch sm:items-center justify-between mb-3 sm:mb-5 flex-col sm:flex-row">
-                <Heading className="text-xl sm:text-3xl font-bold mb-5 sm:mb-0 text-center">Surah</Heading>
+                <Heading className="text-xl sm:text-3xl font-bold mb-5 sm:mb-0 text-center">{page == "home" ? 'Surah' : 'Surah Favorites'}</Heading>
                 <Input onKeyUp={(e) => {
                     if (e.which === 13) { // enter
                         setKeyword(e.target.value.toLowerCase());
