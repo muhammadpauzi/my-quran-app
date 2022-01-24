@@ -21,9 +21,9 @@ export default function Ayah({ ayah, numberOfSurah }) {
                 </audio>
             </div>
             <div>
-                <small className="block font-bold text-green-500 text-right mb-4 text-xl sm:text-3xl">{ayah.text}</small>
+                <small className="block font-bold text-green-500 text-right mb-4 text-2xl sm:text-3xl">{ayah.text}</small>
                 <Heading tag="h3" className="font-bold text-black text-lg mb-2">{ayah.textInTR}</Heading>
-                <small className="font-medium text-gray-500 text-base">{ayah.textInTRL}</small>
+                <small className="font-medium text-gray-500 text-sm sm:text-base">{ayah.textInTRL}</small>
             </div>
         </Card >
     )
