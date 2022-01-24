@@ -10,6 +10,7 @@ import { Menu, Transition } from '@headlessui/react';
 import { getLastListenedOfNumberOfSurah } from '../helpers/date';
 import Input from './Input';
 import { getCurrentData, saveData } from '../helpers/localStorage';
+import BackToTop from './BackToTop';
 
 export default function SurahDetail() {
     const tr = getCurrentData('_translation', "{}");
@@ -76,7 +77,6 @@ export default function SurahDetail() {
     useEffect(() => {
         const lv = getCurrentData('_lock_view', '{}');
         lv.lockView = lockView;
-        console.log(lv, lockView);
         saveData('_lock_view', lv);
     }, [lockView]);
 
@@ -93,6 +93,7 @@ export default function SurahDetail() {
 
     return (
         <>
+            <BackToTop />
             <div className="flex items-stretch sm:items-center justify-between mb-3 sm:mb-5 flex-col sm:flex-row pt-5">
                 <Heading className="text-xl sm:text-3xl font-bold mb-5 sm:mb-0 text-center flex items-center gap-5 ">
                     Surah {surah.englishName}

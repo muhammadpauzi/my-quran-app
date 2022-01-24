@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import axios from '../helpers/axios';
 import Spinner from './Spinner';
 import { getCurrentData } from '../helpers/localStorage';
+import BackToTop from './BackToTop';
 
 export default function Surah({ page }) {
     const [allSurah, setAllSurah] = useState([]);
@@ -47,6 +48,8 @@ export default function Surah({ page }) {
 
     return (
         <>
+            <BackToTop />
+
             <div className="flex items-stretch sm:items-center justify-between mb-3 sm:mb-5 flex-col sm:flex-row">
                 <Heading className="text-xl sm:text-3xl font-bold mb-5 sm:mb-0 text-center">{page == "home" ? 'Surah' : 'Surah Favorites'}</Heading>
                 <Input onKeyUp={(e) => {
@@ -62,7 +65,7 @@ export default function Surah({ page }) {
                 <p className="text-red-500 font-bold py-10 text-center">Surah not found with keyword <span className="text-gray-800">'{keyword}'.</span></p>
             )}
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2" id="a">
                 {allSurah.map((surah, i) => {
                     return (
                         <Link to={`/surah/${surah.number}`} key={i}>
