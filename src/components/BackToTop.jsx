@@ -29,7 +29,7 @@ export default function BackToTop({ id }) {
                 behavior: "smooth",
                 top: element ? element.offsetTop : 0
             });
-        }} ref={backToTop} className="bg-green-500 h-12 hover:shadow-lg transition hover:shadow-green-200 cursor-pointer grid place-content-center w-12 text-white rounded-full fixed bottom-10 right-10 z-50">
+        }} ref={backToTop} className={`bg-green-500 h-12 hover:shadow-lg transition hover:shadow-green-200 cursor-pointer grid place-content-center w-12 text-white rounded-full fixed bottom-10 right-10 z-50${window.scrollY <= 0 ? ' hidden' : ''}`}>
             <ChevronUpIcon className="h-7 w-7" />
         </div>
     )
