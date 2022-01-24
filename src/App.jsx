@@ -20,7 +20,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Container>
-        <Player />
+        {/* <Player /> */}
       </Router>
     </div >
   )
