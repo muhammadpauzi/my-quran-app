@@ -94,8 +94,8 @@ export default function SurahDetail() {
     return (
         <>
             <BackToTop />
-            <div className="flex items-stretch sm:items-center justify-between mb-3 sm:mb-5 flex-col sm:flex-row pt-5">
-                <Heading className="text-xl sm:text-3xl font-bold mb-5 sm:mb-0 text-center flex items-center gap-5 ">
+            <div className="flex items-stretch md:items-center justify-between mb-3 md:mb-5 flex-col md:flex-row pt-5">
+                <Heading className="text-xl sm:text-3xl font-bold mb-5 md:mb-0 text-center flex items-center gap-5">
                     Surah {surah.englishName}
                     <button className="rounded-full text-green-500 h-9 w-9">
                         <PlayIcon />
