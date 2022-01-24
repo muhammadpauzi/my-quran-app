@@ -54,7 +54,7 @@ export default function Surah() {
                 <p className="text-red-500 font-bold py-10 text-center">Surah not found with keyword <span className="text-gray-800">'{keyword}'.</span></p>
             )}
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 ">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
                 {allSurah.map((surah, i) => {
                     return (
                         <Link to={`/surah/${surah.number}`} key={i}>
