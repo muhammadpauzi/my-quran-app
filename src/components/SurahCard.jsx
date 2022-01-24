@@ -37,6 +37,7 @@ export default function SurahCard({ number, englishName, englishNameTranslation,
 
                             favorites.push({ number });
                         }
+                        document.body.focus(); // for remove hover state in mobile after click it
                         saveData('_favorites', favorites);
                     }} />
                 </div>
