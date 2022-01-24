@@ -16,14 +16,12 @@ export default function Surah({ page }) {
     const getAllSurah = async () => {
         let allSurah = (await axios.get(`surah`)).data.data;
         if (page == "favorites") {
-            console.log("MASUK");
             const favorites = getCurrentData('_favorites').map(fav => fav.number);
             allSurah = allSurah.filter(surah => {
                 if (favorites.includes(surah.number))
                     return surah;
             });
         }
-        console.log(allSurah);
         setAllSurahInitial([...allSurah]); // copy array
         setAllSurah(allSurah);
         setLoading(false);

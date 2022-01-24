@@ -1,7 +1,7 @@
 import Ayah from './Ayah';
 import Heading from './Heading';
 import { Fragment } from 'react';
-import { ChevronDownIcon, PlayIcon, RefreshIcon } from '@heroicons/react/solid';
+import { ChevronDownIcon, PlayIcon, RefreshIcon, LockClosedIcon, LockOpenIcon } from '@heroicons/react/outline';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from '../helpers/axios';
@@ -13,6 +13,7 @@ import { getCurrentData, saveData } from '../helpers/localStorage';
 
 export default function SurahDetail() {
     const tr = getCurrentData('_translation', "{}");
+    const lv = getCurrentData('_lock_view', '{"lockView": true}');
 
     const [surah, setSurah] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -21,6 +22,10 @@ export default function SurahDetail() {
     const [ayahs, setAyahs] = useState([]);
     const [translations, setTranslations] = useState([]) // TODO: get from localStorage
     const [translation, setTranslation] = useState(tr?.translation || 'id.indonesian'); // TODO: get from localStorage
+
+    console.log(lv);
+    const [lockView, setLockView] = useState(lv.lockView);
+    console.log(lockView);
 
     const params = useParams();
     const navigate = useNavigate();
@@ -69,6 +74,13 @@ export default function SurahDetail() {
     }, [params.number]);
 
     useEffect(() => {
+        const lv = getCurrentData('_lock_view', '{}');
+        lv.lockView = lockView;
+        console.log(lv, lockView);
+        saveData('_lock_view', lv);
+    }, [lockView]);
+
+    useEffect(() => {
         getAyahs();
     }, [min, max]);
 
@@ -82,16 +94,26 @@ export default function SurahDetail() {
     return (
         <>
             <div className="flex items-stretch sm:items-center justify-between mb-3 sm:mb-5 flex-col sm:flex-row pt-5">
-                <Heading className="text-xl sm:text-3xl font-bold mb-5 sm:mb-0 text-center flex items-center gap-5">
+                <Heading className="text-xl sm:text-3xl font-bold mb-5 sm:mb-0 text-center flex items-center gap-5 ">
                     Surah {surah.englishName}
-                    <button className="rounded-full bg-green-500 h-9 w-9">
-                        <PlayIcon className="text-white" />
+                    <button className="rounded-full text-green-500 h-9 w-9">
+                        <PlayIcon />
                     </button>
-                    <button className="h-9 w-9">
-                        <RefreshIcon className="text-green-500" onClick={() => {
-                            setMin(1);
-                            setMax(Number(surah?.numberOfAyahs));
-                        }} />
+                    <button className="rounded-full h-9 w-9 text-green-500" title="Toogle lock 
+                    view while playing audio." onClick={() => {
+                            setLockView(!lockView);
+                        }} >
+                        {lockView ? (
+                            <LockClosedIcon />
+                        ) : (
+                            <LockOpenIcon />
+                        )}
+                    </button>
+                    <button className="h-9 w-9 text-green-500" onClick={() => {
+                        setMin(1);
+                        setMax(Number(surah?.numberOfAyahs));
+                    }} title="Reset to default start and end of Ayah.">
+                        <RefreshIcon />
                     </button>
                 </Heading>
 
@@ -156,7 +178,7 @@ export default function SurahDetail() {
             <div className="space-y-5">
                 {ayahs?.map((ayah, i) => {
                     return (
-                        <Ayah key={i} ayah={ayah} numberOfSurah={params.number} />
+                        <Ayah key={i} lockView={lockView} ayah={ayah} numberOfSurah={params.number} />
                     )
                 })}
             </div>

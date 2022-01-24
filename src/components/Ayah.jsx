@@ -3,11 +3,11 @@ import Card from "./Card";
 import Heading from "./Heading";
 import { useNavigate } from "react-router-dom";
 
-export default function Ayah({ ayah, numberOfSurah }) {
+export default function Ayah({ ayah, numberOfSurah, lockView }) {
     const navigate = useNavigate();
 
     return (
-        <Card id={`ayah-${ayah.number}`}>
+        <Card id={lockView ? `ayah-${ayah.number}` : ''}>
             <div className="mb-8 flex items-center gap-4">
                 <span className="rounded-full h-8 w-8 flex items-center justify-center bg-green-200 text-green-500 text-sm font-bold">{ayah.numberInSurah}</span>
                 <audio
