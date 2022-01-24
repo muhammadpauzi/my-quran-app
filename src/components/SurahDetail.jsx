@@ -86,11 +86,16 @@ export default function SurahDetail() {
                 </Menu>
             </div>
 
-            <div className="p-5 bg-white rounded grid grid-cols-1 sm:grid-cols-4 gap-2 font-bold text-base mb-4">
-                <span>Surah to : <span className="text-green-500 sm:block">{surah.number}</span></span>
-                <span>Total Ayahs : <span className="text-green-500 sm:block">{surah.numberOfAyahs}</span></span>
-                <span>Revelation Type : <span className="text-green-500 sm:block">{surah.revelationType}</span></span>
-                <span>Last Listened : <span className="text-green-500 sm:block">{(new Date()).toLocaleString()}</span></span>
+            <div className="p-5 bg-white rounded grid grid-cols-1 sm:grid-cols-3 gap-2 font-bold text-base mb-4">
+                <span>Surah to : <span className="text-green-500 block">{surah.number}</span></span>
+                <span>English Name Translation : <span className="text-green-500 block">{surah.englishName}</span></span>
+                <span>Arabic Name : <span className="text-green-500 block">{surah.name}</span></span>
+            </div>
+            <div className="p-5 bg-white rounded grid grid-cols-1 sm:grid-cols-3 gap-2 font-bold text-base mb-4">
+
+                <span>Total Ayahs : <span className="text-green-500 block">{surah.numberOfAyahs}</span></span>
+                <span>Revelation Type : <span className="text-green-500 block">{surah.revelationType}</span></span>
+                <span>Last Listened : <span className="text-green-500 block">{(new Date()).toLocaleString()}</span></span>
             </div>
 
             <div className="space-y-5">
