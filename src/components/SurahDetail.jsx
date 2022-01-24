@@ -57,7 +57,7 @@ export default function SurahDetail() {
         const { data: dataInTRL } = await axios.get(`surah/${numberOfSurah}/${translation}`);
 
         const ayahs = surah?.ayahs?.map(ayah => {
-            ayah.textInTRL = dataInTRL.data.ayahs[ayah.numberInSurah - 1].text;
+            ayah.textInTRL = dataInTRL?.data?.ayahs[ayah.numberInSurah - 1]?.text;
             return ayah;
         });
 
@@ -66,7 +66,7 @@ export default function SurahDetail() {
 
     useEffect(() => {
         getSurahAndTranslations(params.number);
-    }, []);
+    }, [params.number]);
 
     useEffect(() => {
         getAyahs();
@@ -159,6 +159,23 @@ export default function SurahDetail() {
                         <Ayah key={i} ayah={ayah} numberOfSurah={params.number} />
                     )
                 })}
+            </div>
+
+            <div className="flex items-center py-5">
+                <div className="flex items-center gap-2">
+                    {surah.number > 1 && (
+                        <button className="bg-green-500 text-white font-bold py-2 px-3 rounded" onClick={() => {
+                            navigate(`/surah/${surah.number - 1}`, { replace: true });
+                        }}>Previous</button>
+                    )}
+                    {surah.number < 114 && (
+                        <button className="bg-green-500 text-white font-bold py-2 px-3 rounded" onClick={() => {
+                            if (surah.number < 114) {
+                                navigate(`/surah/${surah.number + 1}`, { replace: true });
+                            }
+                        }}>Next</button>
+                    )}
+                </div>
             </div>
         </>
     );
