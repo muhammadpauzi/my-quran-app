@@ -14,7 +14,6 @@ import BackToTop from './BackToTop';
 
 export default function SurahDetail() {
     const tr = getCurrentData('_translation', "{}");
-    const lv = getCurrentData('_lock_view', '{"lockView": true}');
 
     const [surah, setSurah] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -24,9 +23,7 @@ export default function SurahDetail() {
     const [translations, setTranslations] = useState([]) // TODO: get from localStorage
     const [translation, setTranslation] = useState(tr?.translation || 'id.indonesian'); // TODO: get from localStorage
 
-    console.log(lv);
-    const [lockView, setLockView] = useState(lv.lockView);
-    console.log(lockView);
+    const [lockView, setLockView] = useState(true);
 
     const params = useParams();
     const navigate = useNavigate();
@@ -70,14 +67,19 @@ export default function SurahDetail() {
         setAyahs(ayahs);
     }
 
-    useEffect(() => {
-        getSurahAndTranslations(params.number);
-    }, [params.number]);
-
-    useEffect(() => {
+    const updateLockView = () => {
         const lv = getCurrentData('_lock_view', '{}');
         lv.lockView = lockView;
         saveData('_lock_view', lv);
+    }
+
+    useEffect(() => {
+        getSurahAndTranslations(params.number);
+        updateLockView();
+    }, [params.number]);
+
+    useEffect(() => {
+        updateLockView();
     }, [lockView]);
 
     useEffect(() => {
