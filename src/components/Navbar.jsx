@@ -26,7 +26,7 @@ export default function Navbar() {
                         <div className="relative flex items-center justify-between">
                             <div className="absolute inset-y-0 right-0 flex items-center sm:hidden">
                                 {/* Mobile menu button*/}
-                                <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-green-500 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                                <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-green-500 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white hide-tap-color">
                                     <span className="sr-only">Open main menu</span>
                                     {open ? (
                                         <XIcon className="block h-6 w-6" aria-hidden="true" />
@@ -37,7 +37,7 @@ export default function Navbar() {
                             </div>
                             <div className="flex-1 flex items-center justify-between sm:items-stretch">
                                 <div className="flex-shrink-0 flex items-center">
-                                    <Link to="/" className="text-xl text-black font-bold">
+                                    <Link to="/" className="text-xl hide-tap-color text-black font-bold">
                                         My
                                         <span className="text-green-500">Quran</span>
                                     </Link>
@@ -50,7 +50,7 @@ export default function Navbar() {
                                                 to={item.href}
                                                 className={classNames(
                                                     item.type === "button" ? 'bg-green-500 text-white hover:text-white' : 'text-gray-800 hover:text-green-500',
-                                                    'px-3 py-2 rounded-md text-base font-medium'
+                                                    'px-3 py-2 rounded-md text-base font-medium hide-tap-color'
                                                 )}
                                             >
                                                 {item.name}
@@ -69,7 +69,7 @@ export default function Navbar() {
                                     to={item.href}
                                     className={classNames(
                                         item.type === "button" ? 'bg-green-500 text-white hover:text-white text-center ' : 'hover:bg-green-100 hover:text-green-500',
-                                        'block px-3 py-2 rounded-md text-base font-medium'
+                                        'block px-3 py-2 rounded-md text-base font-medium hide-tap-color'
                                     )}>
                                     {item.name}
                                 </Disclosure.Button>
