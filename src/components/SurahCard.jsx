@@ -2,9 +2,12 @@ import Card from "./Card";
 import { HeartIcon } from '@heroicons/react/solid';
 import Heading from "./Heading";
 import { getCurrentData, saveData } from '../helpers/localStorage';
-import { useEffect, useState } from "react";
+import { useLocation } from "react-router";
 
 export default function SurahCard({ number, englishName, englishNameTranslation, numberOfAyahs }) {
+
+    const location = useLocation();
+
     return (
         <Card>
             <div className="flex items-center justify-between mb-4">
@@ -26,6 +29,9 @@ export default function SurahCard({ number, englishName, englishNameTranslation,
                         if (isFavorited) {
                             favorites = favorites.filter(fav => fav.number != number); // remove favorite with the number of surah in localStorage
                             if (element) {
+                                if (location.pathname.includes('favorites') && confirm("Are you sure to unfavorited this surah?")) {
+                                    element.parentElement.parentElement.parentElement.parentElement.classList.add('hidden');
+                                }
                                 element.classList.replace('text-green-500', 'text-gray-300');
                             };
                         } else {

@@ -14,16 +14,20 @@ export default function Surah({ page }) {
     const [keyword, setKeyword] = useState("");
     const [allSurahInitial, setAllSurahInitial] = useState([]);
 
+    const getFavoritesSurah = (allSurah) => {
+        const favorites = getCurrentData('_favorites').map(fav => fav.number);
+        return allSurah.filter(surah => {
+            if (favorites.includes(surah.number))
+                return surah;
+        });
+    }
+
     const getAllSurah = async () => {
         setLoading(true);
         setAllSurah([]);
         let allSurah = (await axios.get(`surah`)).data.data;
         if (page == "favorites") {
-            const favorites = getCurrentData('_favorites').map(fav => fav.number);
-            allSurah = allSurah.filter(surah => {
-                if (favorites.includes(surah.number))
-                    return surah;
-            });
+            allSurah = getFavoritesSurah(allSurah);
         }
         setAllSurahInitial([...allSurah]); // copy array
         setAllSurah(allSurah);
@@ -32,20 +36,28 @@ export default function Surah({ page }) {
 
     const searchSurah = () => {
         let searchedSurah = [];
-        allSurahInitial.map(surah => {
+        let allSurah = allSurahInitial;
+        if (location.pathname.includes('favorites')) {
+            allSurah = getFavoritesSurah(allSurahInitial);
+        }
+
+        allSurah.map(surah => {
             if (surah.englishName.toLowerCase().includes(keyword) || surah.englishNameTranslation.toLowerCase().includes(keyword)) {
                 searchedSurah.push(surah);
             }
         });
+
         setAllSurah(searchedSurah);
     }
 
     useEffect(() => {
         getAllSurah();
+        return () => { };
     }, [page]);
 
     useEffect(() => {
         searchSurah();
+        return () => { };
     }, [keyword]);
 
     return (
@@ -63,9 +75,15 @@ export default function Surah({ page }) {
 
             {loading && <Spinner />}
 
-            {!loading && !allSurah.length && (
+            {(!loading && !allSurah.length && keyword) && (
                 <p className="text-red-500 font-bold py-10 text-center">Surah not found with keyword <span className="text-gray-800">'{keyword}'.</span></p>
-            )}
+            )
+            }
+
+            {(!loading && !allSurah.length && !keyword) && (
+                <p className="text-red-500 font-bold py-10 text-center">Surah not found.</p>
+            )
+            }
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2" id="a">
                 {allSurah.map((surah, i) => {
