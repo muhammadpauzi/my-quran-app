@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'PDMS QuranFont';
+  src: local('PDMS QuranFont'), url(./fonts/_PDMS_Saleem_QuranFont.ttf) format('ttf');
+  /* other formats include: 'woff2', 'truetype, 'opentype',
+                            'embedded-opentype', and 'svg' */
+}
+
 html{
   scroll-behavior: smooth;
 }
@@ -13,6 +20,14 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.arabic-font{
+  font-family: "PDMS QuranFont" !important;
+}
+
+.line-height-100{
+  line-height: 40px;
 }
 
 code {

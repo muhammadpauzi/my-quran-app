@@ -21,9 +21,9 @@ export default function Ayah({ ayah, numberOfSurah, lockView }) {
                 </audio>
             </div>
             <div>
-                <small className="block font-medium text-green-500 text-right mb-4 text-2xl sm:text-3xl">{ayah.text}</small>
-                <Heading tag="h3" className="font-bold text-black text-base sm:text-lg sm:mb-2">{ayah.textInTR}</Heading>
-                <small className="font-medium text-gray-500 text-sm sm:text-base">{ayah.textInTRL}</small>
+                <p className="leading-snug sm:leading-snug arabic-font block font-normal text-green-500 text-right mb-4 sm:pl-32 text-3xl sm:text-4xl">{ayah.text}</p>
+                <Heading tag="h3" className="font-semibold text-black text-base sm:text-lg sm:mb-2 sm:pr-32">{ayah.textInTR}</Heading>
+                <small className="font-medium text-gray-500 text-sm sm:text-base sm:pr-32">{ayah.textInTRL}</small>
             </div>
         </Card >
     )
