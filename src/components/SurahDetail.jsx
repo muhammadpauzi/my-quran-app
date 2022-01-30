@@ -12,6 +12,47 @@ import Input from './Input';
 import { getCurrentData, saveData } from '../helpers/localStorage';
 import BackToTop from './BackToTop';
 
+// const countries = {
+//     id: "Indonesia",
+//     ar: "Saudi Arabia",
+//     az: "Azerbaijan",
+//     bn: "Bangladesh",
+//     cs: "Czech Republic",
+//     de: "",
+//     dv: "Maldives",
+//     en: "English",
+//     es: "Mexico",
+//     fa: "Afghanistan",
+//     fr: "France",
+//     ha: "",
+//     hi: "India",
+//     it: "Italy",
+//     ja: "Japan",
+//     ko: "South Korea",
+//     ku: "Iraq",
+//     ml: "Mali",
+//     nl: "The Netherlands",
+//     no: "Norway",
+//     pl: "Poland",
+//     pt: "São Tomé and Príncipe",
+//     ro: "Romania",
+//     ru: "Russia",
+//     sd: "Sudan",
+//     so: "Somalia",
+//     sq: "Albania",
+//     sv: "Sweden",
+//     sw: "",
+//     ta: "Sri Lanka",
+//     tg: "Tajikistan",
+//     th: "Thailand",
+//     tr: "Turkey",
+//     tt: "Trinidad and Tobago",
+//     ug: "",
+//     ur: "Pakistan",
+//     uz: "Uzbekistan",
+//     zh: "China",
+// }
+
 export default function SurahDetail() {
     const tr = getCurrentData('_translation', "{}");
 

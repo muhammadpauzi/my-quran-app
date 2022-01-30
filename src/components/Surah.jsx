@@ -15,6 +15,8 @@ export default function Surah({ page }) {
     const [allSurahInitial, setAllSurahInitial] = useState([]);
 
     const getAllSurah = async () => {
+        setLoading(true);
+        setAllSurah([]);
         let allSurah = (await axios.get(`surah`)).data.data;
         if (page == "favorites") {
             const favorites = getCurrentData('_favorites').map(fav => fav.number);
