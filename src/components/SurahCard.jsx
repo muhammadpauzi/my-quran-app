@@ -18,7 +18,10 @@ export default function SurahCard({ number, englishName, englishNameTranslation,
 
                         let element = null;
                         element = e.target.classList.contains('favorite-buttons') && e.target;
-                        element = e.target.parentElement.classList.contains('favorite-buttons') && e.target.parentElement;
+                        console.log(element);
+                        if (!element)
+                            element = e.target.parentElement.classList.contains('favorite-buttons') && e.target.parentElement;
+                        console.log(element);
 
                         const isFavorited = favorites.some(fav => fav.number == number);
 
