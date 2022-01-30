@@ -6,20 +6,26 @@ import SurahDetail from './components/SurahDetail';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NotFound from './components/NotFound';
+import Support from './components/Support';
+import Footer from './components/Footer';
 
 function App() {
   return (
-    <div className="bg-gray-50 min-h-screen relative pb-40">
+    <div className="bg-gray-50 min-h-screen relative">
       <Router>
         <Navbar />
-        <Container>
-          <Routes>
-            <Route path="/" element={<Surah page="home" />} />
-            <Route path="/surah/favorites" element={<Surah page="favorites" />} />
-            <Route path="/surah/:number" element={<SurahDetail />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+        <Container fullHeight={true}>
+          <div className="pb-40">
+            <Routes>
+              <Route path="/" element={<Surah page="home" />} />
+              <Route path="/surah/favorites" element={<Surah page="favorites" />} />
+              <Route path="/surah/:number" element={<SurahDetail />} />
+              <Route path="/support" element={<Support />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </div>
         </Container>
+        <Footer />
         {/* <Player /> */}
       </Router>
     </div >
