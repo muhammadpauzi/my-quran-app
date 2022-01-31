@@ -12,46 +12,46 @@ import Input from './Input';
 import { getCurrentData, saveData } from '../helpers/localStorage';
 import BackToTop from './BackToTop';
 
-// const countries = {
-//     id: "Indonesia",
-//     ar: "Saudi Arabia",
-//     az: "Azerbaijan",
-//     bn: "Bangladesh",
-//     cs: "Czech Republic",
-//     de: "",
-//     dv: "Maldives",
-//     en: "English",
-//     es: "Mexico",
-//     fa: "Afghanistan",
-//     fr: "France",
-//     ha: "",
-//     hi: "India",
-//     it: "Italy",
-//     ja: "Japan",
-//     ko: "South Korea",
-//     ku: "Iraq",
-//     ml: "Mali",
-//     nl: "The Netherlands",
-//     no: "Norway",
-//     pl: "Poland",
-//     pt: "São Tomé and Príncipe",
-//     ro: "Romania",
-//     ru: "Russia",
-//     sd: "Sudan",
-//     so: "Somalia",
-//     sq: "Albania",
-//     sv: "Sweden",
-//     sw: "",
-//     ta: "Sri Lanka",
-//     tg: "Tajikistan",
-//     th: "Thailand",
-//     tr: "Turkey",
-//     tt: "Trinidad and Tobago",
-//     ug: "",
-//     ur: "Pakistan",
-//     uz: "Uzbekistan",
-//     zh: "China",
-// }
+const countries = {
+    id: "Indonesia",
+    ar: "Saudi Arabia",
+    az: "Azerbaijan",
+    bn: "Bangladesh",
+    cs: "Czech Republic",
+    de: "",
+    dv: "Maldives",
+    en: "English",
+    es: "Mexico",
+    fa: "Afghanistan",
+    fr: "France",
+    ha: "",
+    hi: "India",
+    it: "Italy",
+    ja: "Japan",
+    ko: "South Korea",
+    ku: "Iraq",
+    ml: "Mali",
+    nl: "The Netherlands",
+    no: "Norway",
+    pl: "Poland",
+    pt: "São Tomé and Príncipe",
+    ro: "Romania",
+    ru: "Russia",
+    sd: "Sudan",
+    so: "Somalia",
+    sq: "Albania",
+    sv: "Sweden",
+    sw: "",
+    ta: "Sri Lanka",
+    tg: "Tajikistan",
+    th: "Thailand",
+    tr: "Turkey",
+    tt: "Trinidad and Tobago",
+    ug: "",
+    ur: "Pakistan",
+    uz: "Uzbekistan",
+    zh: "China",
+}
 
 export default function SurahDetail() {
     const tr = getCurrentData('_translation', "{}");
@@ -140,7 +140,7 @@ export default function SurahDetail() {
                 <Heading className="text-xl sm:text-3xl font-bold mb-5 md:mb-0 text-center flex items-center gap-5">
                     Surah {surah.englishName}
                     <button className="rounded-full text-green-500 h-9 w-9" onClick={() => {
-                        document.querySelectorAll('.murottals-audio')[0].play();
+                        document.querySelectorAll('.murottals-audio')[0]?.play();
                     }}>
                         <PlayIcon />
                     </button>
@@ -181,14 +181,14 @@ export default function SurahDetail() {
                                     return (
                                         <Menu.Item key={i}>
                                             <button
-                                                className='bg-white text-gray-900 group flex hover:bg-gray-50 items-center w-full px-2 py-2 text-sm'
+                                                className='bg-white text-gray-900 group flex hover:bg-gray-50 items-center w-full px-2 py-2 text-sm text-left'
                                                 onClick={(e) => {
                                                     setTranslation(e.target.dataset.identifier);
                                                     let tr = getCurrentData('_translation', "{}");
                                                     tr.translation = e.target.dataset.identifier;
                                                     saveData('_translation', tr);
                                                 }} data-identifier={translation.identifier}>
-                                                {translation.language} {translation.englishName}
+                                                {countries[translation.language] || 'Unknown'} ~ {translation.englishName}
                                             </button>
                                         </Menu.Item>
                                     );
