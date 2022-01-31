@@ -1,11 +1,8 @@
 import { preventDoublePlayAndTriggerNextPlay } from "../helpers/audio";
 import Card from "./Card";
 import Heading from "./Heading";
-import { useNavigate } from "react-router-dom";
 
 export default function Ayah({ ayah, numberOfSurah, lockView }) {
-    const navigate = useNavigate();
-
     return (
         <Card id={lockView ? `ayah-${ayah.number}` : ''}>
             <div className="mb-8 flex items-center gap-4">
@@ -15,7 +12,7 @@ export default function Ayah({ ayah, numberOfSurah, lockView }) {
                     controlsList="nodownload"
                     className="murottals-audio"
                     preload="none"
-                    onPlay={function (e) { preventDoublePlayAndTriggerNextPlay(e, ayah.number, navigate, numberOfSurah) }}
+                    onPlay={function (e) { preventDoublePlayAndTriggerNextPlay(e, ayah.number, numberOfSurah) }}
                 >
                     <source src={ayah.audio} />
                 </audio>

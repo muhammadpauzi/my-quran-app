@@ -225,23 +225,6 @@ export default function SurahDetail() {
                     )
                 })}
             </div>
-
-            <div className="flex items-center py-5">
-                <div className="flex items-center gap-2">
-                    {surah.number > 1 && (
-                        <button className="bg-green-500 text-white font-bold py-2 px-3 rounded" onClick={() => {
-                            navigate(`/surah/${surah.number - 1}`, { replace: true });
-                        }}>Previous</button>
-                    )}
-                    {surah.number < 114 && (
-                        <button className="bg-green-500 text-white font-bold py-2 px-3 rounded" onClick={() => {
-                            if (surah.number < 114) {
-                                navigate(`/surah/${surah.number + 1}`, { replace: true });
-                            }
-                        }}>Next</button>
-                    )}
-                </div>
-            </div>
         </>
     );
 }
