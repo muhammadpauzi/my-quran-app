@@ -5,7 +5,7 @@ export default function Footer() {
     return (
         <div className="text-center py-6 px-5 bg-white drop-shadow-lg  shadow-slate-100">
             <Container withPadding={false}>
-                <p className="text-gray-800">Created by <a href="https://github.com/muhammadpauzi" className="text-green-500 font-bold">Muhammad Pauzi</a> with <HeartIcon className="inline-block h-5 w-5 text-red-500" /> and saved in <a href="https://github.com/muhammadpauzi" className="text-green-500 font-bold">Github.</a></p>
+                <p className="text-gray-800">Created with <HeartIcon className="inline-block h-5 w-5 text-red-500" /> by <a href="https://github.com/muhammadpauzi" className="text-green-500 font-bold">Muhammad Pauzi</a> and saved in <a href="https://github.com/muhammadpauzi" className="text-green-500 font-bold">Github.</a></p>
             </Container>
         </div>
     )
