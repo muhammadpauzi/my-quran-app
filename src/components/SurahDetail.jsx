@@ -164,7 +164,7 @@ export default function SurahDetail() {
                 <Menu as="div" className="relative inline-block text-left">
                     <div>
                         <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-green-500 rounded">
-                            Translation {translation}
+                            Translation : {countries[translation.split('.')[0]]} ~ {translations?.find(tr => tr.identifier == translation).englishName}
                             <ChevronDownIcon
                                 className="w-5 h-5 ml-2 -mr-1 text-violet-200 hover:text-violet-100"
                                 aria-hidden="true"
