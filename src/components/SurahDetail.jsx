@@ -139,7 +139,9 @@ export default function SurahDetail() {
             <div className="flex items-stretch md:items-center justify-between mb-3 md:mb-5 flex-col md:flex-row pt-5">
                 <Heading className="text-xl sm:text-3xl font-bold mb-5 md:mb-0 text-center flex items-center gap-5">
                     Surah {surah.englishName}
-                    <button className="rounded-full text-green-500 h-9 w-9">
+                    <button className="rounded-full text-green-500 h-9 w-9" onClick={() => {
+                        document.querySelectorAll('.murottals-audio')[0].play();
+                    }}>
                         <PlayIcon />
                     </button>
                     <button className="rounded-full h-9 w-9 text-green-500" title="Toogle lock 
