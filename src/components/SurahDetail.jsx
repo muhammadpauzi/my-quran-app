@@ -140,7 +140,12 @@ export default function SurahDetail() {
                 <Heading className="text-xl sm:text-3xl font-bold mb-5 md:mb-0 text-center flex items-center gap-5">
                     Surah {surah.englishName}
                     <button className="rounded-full text-green-500 h-9 w-9" onClick={() => {
-                        document.querySelectorAll('.murottals-audio')[0]?.play();
+                        document.querySelectorAll('.murottals-audio').forEach((el, i) => {
+                            el.pause();
+                            if (i == 0) {
+                                el.play()
+                            }
+                        });
                     }}>
                         <PlayIcon />
                     </button>
