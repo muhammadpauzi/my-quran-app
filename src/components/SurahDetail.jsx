@@ -64,7 +64,7 @@ export default function SurahDetail() {
     const [translations, setTranslations] = useState([]) // TODO: get from localStorage
     const [translation, setTranslation] = useState(tr?.translation || 'id.indonesian'); // TODO: get from localStorage
 
-    const [lockView, setLockView] = useState(true);
+    const [lockView, setLockView] = useState(getCurrentData("_lock_view", "{}").lockView);
 
     const params = useParams();
     const navigate = useNavigate();
@@ -116,7 +116,6 @@ export default function SurahDetail() {
 
     useEffect(() => {
         getSurahAndTranslations(params.number);
-        updateLockView();
     }, [params.number]);
 
     useEffect(() => {
@@ -152,12 +151,6 @@ export default function SurahDetail() {
                         ) : (
                             <LockOpenIcon />
                         )}
-                    </button>
-                    <button className="h-9 w-9 text-green-500" onClick={() => {
-                        setMin(1);
-                        setMax(Number(surah?.numberOfAyahs));
-                    }} title="Reset to default start and end of Ayah.">
-                        <RefreshIcon />
                     </button>
                 </Heading>
 
@@ -214,9 +207,15 @@ export default function SurahDetail() {
                 <span>Revelation Type : <span className="text-green-500 block">{surah.revelationType}</span></span>
                 <span>Last Listened : <span className="text-green-500 block">{getLastListenedOfNumberOfSurah(params.number) || "-"}</span></span>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 font-bold text-base mb-4 items-center">
+            <div className="grid grid-cols-3 sm:grid-cols-3 gap-2 font-bold text-base mb-4 items-center">
                 <Input type="number" labelText="Start From" min={1} max={surah.numberOfAyahs - 1} value={min} className="w-full" onChange={(e) => setMin(Number(e.target.value))} />
                 <Input type="number" labelText="End" min={min + 1} max={surah.numberOfAyahs} value={max} className="w-full" onChange={(e) => setMax(Number(e.target.value))} />
+                <button className="h-9 w-9 text-green-500 mt-5 ml-2" onClick={() => {
+                    setMin(1);
+                    setMax(Number(surah?.numberOfAyahs));
+                }} title="Reset to default start and end of Ayah.">
+                    <RefreshIcon />
+                </button>
             </div>
 
             <div className="space-y-5">

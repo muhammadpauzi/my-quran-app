@@ -24,7 +24,6 @@ export default function Surah({ page }) {
 
     const getAllSurah = async () => {
         setLoading(true);
-        setAllSurah([]);
         let allSurah = (await axios.get(`surah`)).data.data;
         if (page == "favorites") {
             allSurah = getFavoritesSurah(allSurah);
@@ -36,7 +35,6 @@ export default function Surah({ page }) {
 
     const searchSurah = () => {
         setLoading(true);
-        setAllSurah([]);
         let searchedSurah = [];
         let allSurah = allSurahInitial;
         if (location.pathname.includes('favorites')) {
