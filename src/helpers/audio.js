@@ -16,7 +16,7 @@ export function preventDoublePlayAndTriggerNextPlay(e, index, navigate, numberOf
         }
 
         let last_listened = getCurrentData('_last_listened');
-        if(last_listened.length){
+        if(last_listened.some(l => l.numberOfSurah == numberOfSurah)){
             last_listened = last_listened.map(l => {
                 if(l.numberOfSurah == numberOfSurah){
                     l.last_listened_date = (new Date()).toLocaleString();
@@ -29,6 +29,8 @@ export function preventDoublePlayAndTriggerNextPlay(e, index, navigate, numberOf
                     last_listened_date: (new Date()).toLocaleString()
             });
         }
+        console.log(last_listened);
+        console.log(numberOfSurah);
         saveData("_last_listened",last_listened);
     }
 
