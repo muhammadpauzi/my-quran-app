@@ -63,6 +63,8 @@ export default function Surah({ page }) {
         return () => { };
     }, [keyword]);
 
+    if (loading) return <Spinner />;
+
     return (
         <>
             <BackToTop />
@@ -75,8 +77,6 @@ export default function Surah({ page }) {
                     }
                 }} withLabel={false} placeholder="Enter a keyword..." nameAndID="keyword" className="w-full sm:w-72" />
             </div>
-
-            {loading && <Spinner />}
 
             {(!loading && !allSurah.length && keyword) && (
                 <p className="text-red-500 font-bold py-10 text-center">Surah not found with keyword <span className="text-gray-800">'{keyword}'.</span></p>
